@@ -1,5 +1,6 @@
-import 'dart:io';
+//This screen shows the list of items currently in the database
 
+import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
@@ -25,6 +26,9 @@ class ListScreenState extends State<ListScreen> {
     super.initState();
   }
 
+  //prompts to get a picture from the user from the phone's gallery
+  //It will save it to the firebase storage, then return a download URL
+  //It then saves that download URL as a string to the global variable "imagePath"
   void getImage() async {
     image = await ImagePicker.pickImage(source: ImageSource.gallery);
     StorageReference storageReference =
@@ -34,7 +38,7 @@ class ListScreenState extends State<ListScreen> {
     imagePath = await storageReference.getDownloadURL();
   }
 
-/*
+/* OLD METHOD OF GETTING PICTURE:
   void getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     imagePath = pickedFile.path;
@@ -42,6 +46,7 @@ class ListScreenState extends State<ListScreen> {
   }
 */
 
+//Building the list screen:
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,13 +56,12 @@ class ListScreenState extends State<ListScreen> {
           const Text('Wasteagram'),
         ]),
       ),
-
-      // PostList() is a listview of all "posts" stored in firebase
-      body: PostList(),
+      body: PostList(), //list of posts from database
+      //add a button for the user to add a new post:
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Semantics(
         label: "New Post",
-        hint: "Touch to create new post",
+        hint: "Tap to create new post",
         child: FloatingActionButton(
           key: Key('postButton'),
           child: Icon(Icons.add),
