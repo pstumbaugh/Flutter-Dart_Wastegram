@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:wasteagram/screens/new_post_screen.dart';
 import '../models/entry.dart';
@@ -18,18 +20,10 @@ class ListScreenState extends State<ListScreen> {
     super.initState();
   }
 
-  // Allows user to grab image from image gallery
-  Future getImage() async {
+  void getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
-    //TODO: HANDLE BACK BUTTON ON IMAGE SELECTOR
-    // print(pickedFile);
-    // if (pickedFile == null) {
-    //   Navigator.push(
-    //       context,
-    //       MaterialPageRoute(
-    //           builder: (context) => ListScreen()));
-    // }
     imagePath = pickedFile.path;
+    setState(() {});
   }
 
   @override
