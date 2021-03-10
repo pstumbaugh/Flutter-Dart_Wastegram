@@ -7,8 +7,6 @@ class ImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Image.file(File(imagePath)),
-    );
+    return Expanded(child: Image.network('$imagePath'));
   }
 }

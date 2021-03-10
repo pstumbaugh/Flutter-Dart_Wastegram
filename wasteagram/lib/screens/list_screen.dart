@@ -32,7 +32,6 @@ class ListScreenState extends State<ListScreen> {
     StorageUploadTask uploadTask = storageReference.putFile(image);
     await uploadTask.onComplete;
     imagePath = await storageReference.getDownloadURL();
-    setState(() {});
   }
 
 /*

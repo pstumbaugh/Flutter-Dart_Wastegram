@@ -45,7 +45,6 @@ class _FormWidgetState extends State<FormWidget> {
               return null;
             },
             onSaved: (value) {
-              // TODO: SAVE TO OBJECT
               itemCount = int.parse(value);
               //print(formValue);
             },
@@ -65,9 +64,9 @@ class _FormWidgetState extends State<FormWidget> {
                           formKey.currentState.save();
                           // Formate Date
                           String date = DateFormat.yMd().format(DateTime.now());
+
                           // Get location data
                           await retrieveLocation();
-
                           StorageReference storageReference = FirebaseStorage
                               .instance
                               .ref()
@@ -75,6 +74,8 @@ class _FormWidgetState extends State<FormWidget> {
 
                           StorageUploadTask uploadTask =
                               storageReference.putFile(File(imagePath));
+
+                          print("TEST");
 
                           await uploadTask.onComplete;
                           final url = await storageReference.getDownloadURL();
@@ -95,10 +96,3 @@ class _FormWidgetState extends State<FormWidget> {
         ]));
   }
 }
-
-// class SubmitButton extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
