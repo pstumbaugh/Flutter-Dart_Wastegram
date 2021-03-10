@@ -1,11 +1,14 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:wasteagram/screens/new_post_screen.dart';
 import '../models/entry.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'detail_screen.dart';
+import 'package:path/path.dart' as Path;
 
 class ListScreen extends StatefulWidget {
   @override
@@ -15,16 +18,30 @@ class ListScreen extends StatefulWidget {
 class ListScreenState extends State<ListScreen> {
   final picker = ImagePicker();
   String imagePath;
+  File image;
+  LocationData locationData;
 
   void initState() {
     super.initState();
   }
 
   void getImage() async {
+    image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    StorageReference storageReference =
+        FirebaseStorage.instance.ref().child(Path.basename(image.path));
+    StorageUploadTask uploadTask = storageReference.putFile(image);
+    await uploadTask.onComplete;
+    imagePath = await storageReference.getDownloadURL();
+    setState(() {});
+  }
+
+/*
+  void getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     imagePath = pickedFile.path;
     setState(() {});
   }
+*/
 
   @override
   Widget build(BuildContext context) {

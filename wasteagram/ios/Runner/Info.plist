@@ -18,11 +18,14 @@
 	</dict>
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow access to photo library</string>
+	<string>Selecting a photo from within the app</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow access to camera to capture photos</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow access to microphone</string>
+	<string>Selecting a photo from within the app</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Needed to access location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Needed to access location</string>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
