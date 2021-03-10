@@ -72,13 +72,10 @@ class _FormWidgetState extends State<FormWidget> {
                               .ref()
                               .child(DateTime.now().toString());
 
-                          StorageUploadTask uploadTask =
-                              storageReference.putFile(File(imagePath));
+                          //StorageUploadTask uploadTask = storageReference.putFile(File(imagePath));
 
-                          print("TEST");
-
-                          await uploadTask.onComplete;
-                          final url = await storageReference.getDownloadURL();
+                          //await uploadTask.onComplete;
+                          final url = imagePath;
 
                           await Firestore.instance.collection('posts').add({
                             'date': date,
