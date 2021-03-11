@@ -33,8 +33,14 @@ class DisplayColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(entry.date),
-        Image.network(entry.url),
+        Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: Text(
+            entry.date,
+          ),
+        ),
+        ImageWidget(imagePath: entry.url),
+        //Image.network(entry.url),
         Text('Items: ' + entry.itemCount.toString()),
         Expanded(
             child: Row(

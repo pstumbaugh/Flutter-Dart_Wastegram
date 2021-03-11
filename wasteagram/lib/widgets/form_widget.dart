@@ -40,7 +40,6 @@ class _FormWidgetState extends State<FormWidget> {
             },
             onSaved: (value) {
               itemCount = int.parse(value);
-              //print(formValue);
             },
           ),
           Align(
@@ -56,7 +55,7 @@ class _FormWidgetState extends State<FormWidget> {
                       onPressed: () async {
                         if (formKey.currentState.validate()) {
                           formKey.currentState.save();
-                          // Formate Date
+                          // Format Date
                           String date = DateFormat.yMd().format(DateTime.now());
 
                           // Get location data
