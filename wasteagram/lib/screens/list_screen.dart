@@ -4,12 +4,14 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:simpleprogressdialog/builders/material_dialog_builder.dart';
 import 'package:wasteagram/screens/new_post_screen.dart';
 import '../models/entry.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'detail_screen.dart';
 import 'package:path/path.dart' as Path;
+import 'package:simpleprogressdialog/simpleprogressdialog.dart';
 
 class ListScreen extends StatefulWidget {
   @override
@@ -29,7 +31,7 @@ class ListScreenState extends State<ListScreen> {
   //prompts to get a picture from the user from the phone's gallery
   //It will save it to the firebase storage, then return a download URL
   //It then saves that download URL as a string to the global variable "imagePath"
-  void getImage() async {
+  Future getImage() async {
     image = await ImagePicker.pickImage(source: ImageSource.gallery);
     StorageReference storageReference =
         FirebaseStorage.instance.ref().child(Path.basename(image.path));
@@ -46,9 +48,30 @@ class ListScreenState extends State<ListScreen> {
   }
 */
 
+//pops up a box with the progress indicator (using while waiting for async functions to complete)
+//NOTE - progressDialog.dismiss(); must be called after to remove the progress indicator from screen
+  void showProgressIndicator(ProgressDialog progressDialog) {
+    return progressDialog.showMaterial(
+      backgroundColor: Colors.grey[300],
+      message: "Loading picture",
+      messageStyle: TextStyle(
+          color: Colors.blue[800], fontSize: 17, fontWeight: FontWeight.bold),
+      title: "Wasteagram",
+      titleStyle: TextStyle(
+        color: Colors.blue[800],
+        fontSize: 22,
+      ),
+      centerTitle: true,
+      layout: MaterialProgressDialogLayout
+          .columnReveredWithCircularProgressIndicator,
+    );
+  }
+
 //Building the list screen:
   @override
   Widget build(BuildContext context) {
+    ProgressDialog progressDialog =
+        ProgressDialog(context: context, barrierDismissible: false);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -63,11 +86,16 @@ class ListScreenState extends State<ListScreen> {
         label: "New Post",
         hint: "Tap to create new post",
         child: FloatingActionButton(
+          backgroundColor: Colors.blue[400],
+          hoverColor: Colors.blue[800],
+          splashColor: Colors.blue[900],
           key: Key('postButton'),
-          child: Icon(Icons.add),
+          child: Icon(Icons.add_photo_alternate),
           onPressed: () async {
+            showProgressIndicator(progressDialog);
             // wait for image to be selected before navigating
             await getImage();
+            progressDialog.dismiss();
             Navigator.push(
                 context,
                 MaterialPageRoute(
