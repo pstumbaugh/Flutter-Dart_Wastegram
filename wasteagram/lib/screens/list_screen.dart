@@ -1,17 +1,7 @@
 //This screen shows the list of items currently in the database
 
-import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:location/location.dart';
-import 'package:simpleprogressdialog/builders/material_dialog_builder.dart';
-import 'package:wasteagram/screens/new_post_screen.dart';
-import '../models/entry.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'detail_screen.dart';
+import '../imports.dart';
 import 'package:path/path.dart' as Path;
-import 'package:simpleprogressdialog/simpleprogressdialog.dart';
 
 class ListScreen extends StatefulWidget {
   @override
@@ -26,6 +16,38 @@ class ListScreenState extends State<ListScreen> {
 
   void initState() {
     super.initState();
+  }
+
+//Building the list screen:
+  @override
+  Widget build(BuildContext context) {
+    ProgressDialog progressDialog =
+        ProgressDialog(context: context, barrierDismissible: false);
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Column(children: [
+          const Text('Wasteagram'),
+        ]),
+      ),
+      body: ListsOfPosts(), //list of posts from database
+      //add a button for the user to add a new post:
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Semantics(
+        label: "New Post",
+        hint: "Tap to create new post",
+        child: FloatingActionButton(
+          backgroundColor: Colors.blue[400],
+          hoverColor: Colors.blue[800],
+          splashColor: Colors.blue[900],
+          key: Key('postButton'),
+          child: Icon(Icons.add_photo_alternate),
+          onPressed: () async {
+            getPictureAndRoute(progressDialog);
+          },
+        ),
+      ),
+    );
   }
 
   //prompts to get a picture from the user from the phone's gallery
@@ -67,52 +89,27 @@ class ListScreenState extends State<ListScreen> {
     );
   }
 
-//Building the list screen:
-  @override
-  Widget build(BuildContext context) {
-    ProgressDialog progressDialog =
-        ProgressDialog(context: context, barrierDismissible: false);
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Column(children: [
-          const Text('Wasteagram'),
-        ]),
-      ),
-      body: PostList(), //list of posts from database
-      //add a button for the user to add a new post:
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Semantics(
-        label: "New Post",
-        hint: "Tap to create new post",
-        child: FloatingActionButton(
-          backgroundColor: Colors.blue[400],
-          hoverColor: Colors.blue[800],
-          splashColor: Colors.blue[900],
-          key: Key('postButton'),
-          child: Icon(Icons.add_photo_alternate),
-          onPressed: () async {
-            showProgressIndicator(progressDialog);
-            // wait for image to be selected before navigating
-            await getImage();
-            progressDialog.dismiss();
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => NewPostScreen(imagePath: imagePath)));
-          },
-        ),
-      ),
-    );
+  //gets a new pic from user, then routes to the new post screen
+  Future<void> getPictureAndRoute(ProgressDialog progressDialog) async {
+    showProgressIndicator(
+        progressDialog); //show progress indicator (on list page)
+    await getImage(); // wait for image to be selected before navigating
+    progressDialog.dismiss(); //remove progress indicator
+    Navigator.push(
+        //go to the new post screen with the image's url
+        context,
+        MaterialPageRoute(
+            builder: (context) => NewPostScreen(imagePath: imagePath)));
   }
 }
 
-class PostList extends StatefulWidget {
+//POST LIST SCREEN body:
+class ListsOfPosts extends StatefulWidget {
   @override
-  _PostListState createState() => _PostListState();
+  _ListsOfPostsState createState() => _ListsOfPostsState();
 }
 
-class _PostListState extends State<PostList> {
+class _ListsOfPostsState extends State<ListsOfPosts> {
   @override
   Widget build(BuildContext context) {
     // Scrollable list view

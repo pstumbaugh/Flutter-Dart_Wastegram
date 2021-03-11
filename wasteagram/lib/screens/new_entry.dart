@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:location/location.dart';
-import 'package:wasteagram/widgets/form_widget.dart';
-import 'package:wasteagram/widgets/image_widget.dart';
-import 'dart:developer';
+import '../imports.dart';
+//import 'dart:developer';
 
 // This screen allows a user to upload a new post
 class NewPostScreen extends StatefulWidget {

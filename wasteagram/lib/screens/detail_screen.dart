@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:wasteagram/models/entry.dart';
+import '../imports.dart';
 
 class DetailScreen extends StatefulWidget {
   final Entry entry;
@@ -14,7 +13,7 @@ class _DetailScreenState extends State<DetailScreen> {
   _DetailScreenState({this.entry});
   @override
   Widget build(BuildContext context) {
-    print(entry.url);
+    print("URL of picture in post: " + entry.url);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,

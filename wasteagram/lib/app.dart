@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:wasteagram/screens/list_screen.dart';
+import 'imports.dart';
 
 class MyApp extends StatelessWidget {
   @override

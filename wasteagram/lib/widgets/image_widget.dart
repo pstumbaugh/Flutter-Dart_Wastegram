@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'dart:io';
+import '../imports.dart';
 
 class ImageWidget extends StatelessWidget {
   final String imagePath;
