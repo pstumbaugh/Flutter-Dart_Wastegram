@@ -35,21 +35,36 @@ class DisplayColumn extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 20),
-          child: Text(
-            entry.date,
-          ),
+          child: Text(entry.date, style: Styles.headline2),
         ),
-        ImageWidget(imagePath: entry.url),
-        //Image.network(entry.url),
-        Text('Items: ' + entry.itemCount.toString()),
-        Expanded(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text('Latitude: ' + entry.latitude),
-            Text('Longitude: ' + entry.longitude),
-          ],
-        ))
+        Padding(
+          padding: const EdgeInsets.only(top: 80),
+          child: Column(
+            children: [
+              ImageWidget(imagePath: entry.url),
+              //Image.network(entry.url),
+              Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Text('Items: ' + entry.itemCount.toString(),
+                    style: Styles.headline4),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text('Location: (' +
+                        entry.latitude +
+                        ', ' +
+                        entry.longitude +
+                        ')'),
+                  ],
+                )),
+              ),
+            ],
+          ),
+        )
       ],
     );
   }

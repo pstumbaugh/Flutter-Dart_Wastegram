@@ -25,5 +25,15 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-
   uses-material-design: true
+
+  fonts:
+    - family: Bangers
+      fonts:
+        - asset: assets/fonts/Bangers-Regular.ttf
+    - family: AnticSlab
+      fonts:
+        - asset: assets/fonts/AnticSlab-Regular.ttf
+    - family: Shadow
+      fonts:
+        - asset: assets/fonts/ShadowsIntoLight-Regular.ttf

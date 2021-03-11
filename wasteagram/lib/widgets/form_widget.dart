@@ -28,19 +28,23 @@ class _FormWidgetState extends State<FormWidget> {
     return Form(
         key: formKey,
         child: Column(children: <Widget>[
-          TextFormField(
-            textAlign: TextAlign.center,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(hintText: 'Items Wasted'),
-            validator: (value) {
-              if (!isNumAndPos(value)) {
-                return 'Please enter a positive number';
-              }
-              return null;
-            },
-            onSaved: (value) {
-              itemCount = int.parse(value);
-            },
+          Padding(
+            padding: const EdgeInsets.only(bottom: 30),
+            child: TextFormField(
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(hintText: 'Items Wasted'),
+              style: Styles.headline2,
+              validator: (value) {
+                if (!isNumAndPos(value)) {
+                  return 'Please enter a positive number';
+                }
+                return null;
+              },
+              onSaved: (value) {
+                itemCount = int.parse(value);
+              },
+            ),
           ),
           Align(
             alignment: Alignment.bottomCenter,

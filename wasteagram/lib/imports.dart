@@ -13,6 +13,7 @@ export './widgets/image_widget.dart';
 //MAIN SECTIONS:
 export './main.dart';
 export './app.dart';
+export './Styles.dart';
 
 //OTHER:
 export 'package:image_picker/image_picker.dart';
