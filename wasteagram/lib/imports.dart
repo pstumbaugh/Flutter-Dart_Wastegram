@@ -1,10 +1,10 @@
 //MODELS:
-export './models/entry.dart';
+export './models/entry_model.dart';
 
 //SCREENS:
 export './screens/new_entry.dart';
-export './screens/list_screen.dart';
-export './screens/detail_screen.dart';
+export './screens/all_posts.dart';
+export './screens/item_details.dart';
 
 //WIDGETS:
 export './widgets/form_widget.dart';

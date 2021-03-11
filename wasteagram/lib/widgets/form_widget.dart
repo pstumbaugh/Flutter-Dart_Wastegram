@@ -31,11 +31,10 @@ class _FormWidgetState extends State<FormWidget> {
           TextFormField(
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
-            decoration:
-                const InputDecoration(hintText: 'Number of wasted items'),
+            decoration: const InputDecoration(hintText: 'Items Wasted'),
             validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter a quantity';
+              if (!isNumAndPos(value)) {
+                return 'Please enter a positive number';
               }
               return null;
             },
@@ -86,5 +85,25 @@ class _FormWidgetState extends State<FormWidget> {
                     ))),
           ),
         ]));
+  }
+
+  bool isNumAndPos(String string) {
+    // Null or empty string is not a number
+    if (string == null || string.isEmpty) {
+      return false;
+    }
+
+    //parse a string to a number (will return null if not number)
+    final number = num.tryParse(string);
+    if (number == null) {
+      return false;
+    }
+
+    //if value is a number, check to make sure it's greater than 0
+    if (number <= 0) {
+      return false;
+    }
+
+    return true;
   }
 }

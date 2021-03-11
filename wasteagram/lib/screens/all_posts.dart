@@ -117,26 +117,34 @@ class _ListsOfPostsState extends State<ListsOfPosts> {
       return Semantics(
         label: "Date: ${entry.date}",
         // generate a ListTile for each entry passed into this function
-        child: ListTile(
-            title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(entry.date),
-                  Text('Items: ' + entry.itemCount.toString()),
-                ]),
-            onTap: () {
-              // Navigate to post details when tapped
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DetailScreen(entry: entry)));
-            }),
+        child: Column(
+          children: [
+            ListTile(
+                title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(entry.date),
+                      Text('Items: ' + entry.itemCount.toString()),
+                    ]),
+                onTap: () {
+                  // Navigate to post details when tapped
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetailScreen(entry: entry)));
+                }),
+          ],
+        ),
       );
     }
 
     return StreamBuilder(
         // Stream of data the StreamBuilder is listening to
-        stream: Firestore.instance.collection('posts').snapshots(),
+        //Sort based on date added
+        stream: Firestore.instance
+            .collection('posts')
+            .orderBy('date', descending: true)
+            .snapshots(),
         // builder invoked whenever new data is acquired
         // snapshot represents the potential value of a Future
         builder: (context, snapshot) {

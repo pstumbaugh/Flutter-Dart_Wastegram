@@ -13,13 +13,12 @@ class _DetailScreenState extends State<DetailScreen> {
   _DetailScreenState({this.entry});
   @override
   Widget build(BuildContext context) {
-    print("URL of picture in post: " + entry.url);
+    //print("URL of picture in post: " + entry.url);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Column(children: [
             const Text('Wasteagram'),
-            //Text('WasteCount: ' + wasteCount.toString()),
           ]),
         ),
         body: DisplayColumn(entry: entry));
