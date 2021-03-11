@@ -6,6 +6,12 @@ class ImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: Image.network('$imagePath'));
+    return Container(
+        width: 350.0,
+        height: 500.0,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30.0),
+            image: DecorationImage(
+                image: NetworkImage('$imagePath'), fit: BoxFit.scaleDown)));
   }
 }

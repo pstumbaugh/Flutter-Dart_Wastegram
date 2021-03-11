@@ -46,11 +46,11 @@ class _FormWidgetState extends State<FormWidget> {
           Align(
             alignment: Alignment.bottomCenter,
             child: SizedBox(
-                width: 300,
+                width: 2000,
                 height: 75,
                 child: Semantics(
-                    label: "Submit post",
-                    hint: "Submit post",
+                    label: "Submit",
+                    hint: "Submit",
                     child: RaisedButton(
                       key: Key('submitButton'),
                       onPressed: () async {
@@ -81,7 +81,10 @@ class _FormWidgetState extends State<FormWidget> {
                           Navigator.pop(context);
                         }
                       },
-                      child: Icon(Icons.add_to_photos),
+                      child: Icon(
+                        Icons.add_to_photos,
+                        size: 40,
+                      ),
                     ))),
           ),
         ]));
