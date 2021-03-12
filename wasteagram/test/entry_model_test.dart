@@ -1,21 +1,18 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wasteagram/imports.dart';
-import 'package:wasteagram/widgets/form_widget.dart' as formWidget;
-import 'package:intl/intl.dart';
 
 void main() {
-  test('Values Added by Direct Insertion', () {
-    DocumentSnapshot doc;
-    Timestamp day = DateTime.now();
+  test('Values added to new post test', () {
+    DateTime currentDate = DateTime.now(); //DateTime
+    Timestamp day = Timestamp.fromDate(currentDate); //conver to timestamp
     String url = "fakeImage.com";
     String lat = '140.3';
     String long = '-42';
     int itemCount;
 
-    final post = Entry(doc);
+    final post = Entry.fromMap();
     post.date = day;
-    post.itemCount = url as int;
+    post.itemCount = itemCount;
     post.url = url;
     post.latitude = lat;
     post.longitude = long;
