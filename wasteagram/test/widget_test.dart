@@ -1,30 +1,29 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:wasteagram/main.dart';
+import 'package:wasteagram/imports.dart';
+import 'package:wasteagram/widgets/form_widget.dart' as formWidget;
+import 'package:intl/intl.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  test('Values Added by Direct Insertion', () {
+    DocumentSnapshot doc;
+    Timestamp day = DateTime.now();
+    String url = "fakeImage.com";
+    String lat = '140.3';
+    String long = '-42';
+    int itemCount;
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    final post = Entry(doc);
+    post.date = day;
+    post.itemCount = url as int;
+    post.url = url;
+    post.latitude = lat;
+    post.longitude = long;
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(post.date, day);
+    expect(post.itemCount, itemCount);
+    expect(post.url, url);
+    expect(post.latitude, lat);
+    expect(post.longitude, long);
   });
 }

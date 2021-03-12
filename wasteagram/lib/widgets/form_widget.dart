@@ -8,6 +8,8 @@ class FormWidget extends StatefulWidget {
   FormWidget({this.imagePath});
   @override
   _FormWidgetState createState() => _FormWidgetState(imagePath: imagePath);
+
+  static fromMap(Map<String, dynamic> map) {}
 }
 
 class _FormWidgetState extends State<FormWidget> {
