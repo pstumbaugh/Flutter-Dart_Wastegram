@@ -24,15 +24,10 @@ class ListScreenState extends State<ListScreen> {
   Widget build(BuildContext context) {
     ProgressDialog progressDialog =
         ProgressDialog(context: context, barrierDismissible: false);
-    var totalWaste = getTotalWaste();
-    print(totalWaste);
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Column(children: [
-          const Text('Wasteagram'),
-        ]),
+        title: titleAndTotalWaste(),
       ),
       body: ListsOfPosts(), //list of posts from database
       //add a button for the user to add a new post:
@@ -54,16 +49,31 @@ class ListScreenState extends State<ListScreen> {
     );
   }
 
-  int getTotalWaste() {
-    var totalWaste = 0;
-        stream: Firestore.instance.collection('wasteagram').snapshots(),
-          print("starting total waste");
-          for (var i = 0; i < snapshot.data.documents.length; i++) {
-            totalWaste += snapshot.data.documents[i]['itemCount'];
-            print(totalWaste);
+  //displays the app's title and the total waste in the database
+  StreamBuilder titleAndTotalWaste() {
+    return StreamBuilder(
+        stream: Firestore.instance.collection('posts').snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData)
+            return Text('Wastegram');
+          else {
+            for (int index = 0;
+                index < snapshot.data.documents.length;
+                index++) {
+              totalWaste = getTotalWaste(
+                  snapshot.data.documents[index]['itemCount'], totalWaste);
+            }
+            int wasteTotal =
+                totalWaste; //Ensures that it doesn't double values when reloads
+            totalWaste = 0;
+            return Text('Wasteagram - $wasteTotal');
           }
-          return;
-    return totalWaste;
+        });
+  }
+
+  //adds up total waste
+  int getTotalWaste(int quantity, int totalWaste) {
+    return totalWaste = totalWaste + quantity;
   }
 
   //prompts to get a picture from the user from the phone's gallery
