@@ -43,8 +43,6 @@ class DisplayColumn extends StatelessWidget {
             children: [
               Text(DateFormat.yMMMd().format(entry.date.toDate()),
                   style: Styles.headline2),
-              Text(DateFormat.yMMMd().add_jm().format(entry.date.toDate()),
-                  style: Styles.headline2),
             ],
           ),
         ),

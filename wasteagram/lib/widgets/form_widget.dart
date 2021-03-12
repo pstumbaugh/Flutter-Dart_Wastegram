@@ -55,8 +55,8 @@ class _FormWidgetState extends State<FormWidget> {
                   if (formKey.currentState.validate()) {
                     formKey.currentState.save();
                     // Format Date
-                    String date = DateFormat.yMd().format(DateTime.now());
-
+                    //Timestamp date = DateFormat.yMd().format(DateTime.now());
+                    var date = DateTime.now();
                     // Get location data
                     await retrieveLocation();
 
