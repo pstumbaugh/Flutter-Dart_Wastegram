@@ -1,3 +1,5 @@
+import 'package:flutter/semantics.dart';
+
 import '../imports.dart';
 import 'package:intl/intl.dart';
 
@@ -55,37 +57,41 @@ class _FormWidgetState extends State<FormWidget> {
                   border: Border.all(color: Colors.blueGrey, width: 7)),
               width: 100,
               height: 100,
-              child: RaisedButton(
-                key: Key('submitButton'),
-                onPressed: () async {
-                  if (formKey.currentState.validate()) {
-                    formKey.currentState.save();
-                    // Format Date
-                    //OLD-> Timestamp date = DateFormat.yMd().format(DateTime.now());
-                    var date = DateTime.now();
+              child: Semantics(
+                label: "Submit",
+                hint: "Submit",
+                child: RaisedButton(
+                  key: Key('submitButton'),
+                  onPressed: () async {
+                    if (formKey.currentState.validate()) {
+                      formKey.currentState.save();
+                      // Format Date
+                      //OLD-> Timestamp date = DateFormat.yMd().format(DateTime.now());
+                      var date = DateTime.now();
 
-                    // Get location data (stores in longitude and latitude)
-                    await retrieveLocation();
+                      // Get location data (stores in longitude and latitude)
+                      await retrieveLocation();
 
-                    //StorageReference storageReference = FirebaseStorage.instance.ref().child(DateTime.now().toString());
-                    //StorageUploadTask uploadTask = storageReference.putFile(File(imagePath));
+                      //StorageReference storageReference = FirebaseStorage.instance.ref().child(DateTime.now().toString());
+                      //StorageUploadTask uploadTask = storageReference.putFile(File(imagePath));
 
-                    //await uploadTask.onComplete;
-                    //final url = imagePath;
+                      //await uploadTask.onComplete;
+                      //final url = imagePath;
 
-                    await Firestore.instance.collection('posts').add({
-                      'date': date,
-                      'itemCount': itemCount,
-                      'latitude': locationData.latitude.toString(),
-                      'longitude': locationData.longitude.toString(),
-                      'url': imagePath
-                    });
-                    Navigator.pop(context);
-                  }
-                },
-                child: Icon(
-                  Icons.cloud_upload_outlined,
-                  size: 50,
+                      await Firestore.instance.collection('posts').add({
+                        'date': date,
+                        'itemCount': itemCount,
+                        'latitude': locationData.latitude.toString(),
+                        'longitude': locationData.longitude.toString(),
+                        'url': imagePath
+                      });
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: Icon(
+                    Icons.cloud_upload_outlined,
+                    size: 50,
+                  ),
                 ),
               )),
         ]));
