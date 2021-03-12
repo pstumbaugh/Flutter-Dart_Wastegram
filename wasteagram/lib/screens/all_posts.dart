@@ -13,6 +13,7 @@ class ListScreenState extends State<ListScreen> {
   String imagePath;
   File image;
   LocationData locationData;
+  var totalWaste = 0;
 
   void initState() {
     super.initState();
@@ -23,6 +24,9 @@ class ListScreenState extends State<ListScreen> {
   Widget build(BuildContext context) {
     ProgressDialog progressDialog =
         ProgressDialog(context: context, barrierDismissible: false);
+    var totalWaste = getTotalWaste();
+    print(totalWaste);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -48,6 +52,18 @@ class ListScreenState extends State<ListScreen> {
         ),
       ),
     );
+  }
+
+  int getTotalWaste() {
+    var totalWaste = 0;
+        stream: Firestore.instance.collection('wasteagram').snapshots(),
+          print("starting total waste");
+          for (var i = 0; i < snapshot.data.documents.length; i++) {
+            totalWaste += snapshot.data.documents[i]['itemCount'];
+            print(totalWaste);
+          }
+          return;
+    return totalWaste;
   }
 
   //prompts to get a picture from the user from the phone's gallery
