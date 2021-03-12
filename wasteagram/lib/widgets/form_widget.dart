@@ -46,7 +46,13 @@ class _FormWidgetState extends State<FormWidget> {
               },
             ),
           ),
-          SizedBox(
+          Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  border: Border.all(color: Colors.grey, width: 4)),
+              foregroundDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  border: Border.all(color: Colors.blueGrey, width: 7)),
               width: 100,
               height: 100,
               child: RaisedButton(
@@ -55,9 +61,10 @@ class _FormWidgetState extends State<FormWidget> {
                   if (formKey.currentState.validate()) {
                     formKey.currentState.save();
                     // Format Date
-                    //Timestamp date = DateFormat.yMd().format(DateTime.now());
+                    //OLD-> Timestamp date = DateFormat.yMd().format(DateTime.now());
                     var date = DateTime.now();
-                    // Get location data
+
+                    // Get location data (stores in longitude and latitude)
                     await retrieveLocation();
 
                     //StorageReference storageReference = FirebaseStorage.instance.ref().child(DateTime.now().toString());
