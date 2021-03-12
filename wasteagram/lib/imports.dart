@@ -26,7 +26,6 @@ export 'package:firebase_storage/firebase_storage.dart';
 export 'package:flutter/material.dart';
 export 'package:location/location.dart';
 export 'package:simpleprogressdialog/builders/material_dialog_builder.dart';
-
 export 'package:flutter/material.dart';
 export 'package:flutter/services.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';

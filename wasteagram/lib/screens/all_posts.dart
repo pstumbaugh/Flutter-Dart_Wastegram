@@ -1,7 +1,7 @@
 //This screen shows the list of items currently in the database
-
 import '../imports.dart';
 import 'package:path/path.dart' as Path;
+import 'package:intl/intl.dart';
 
 class ListScreen extends StatefulWidget {
   @override
@@ -55,7 +55,10 @@ class ListScreenState extends State<ListScreen> {
         stream: Firestore.instance.collection('posts').snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData)
-            return Text('Wastegram');
+            return Text(
+              'Wastegram',
+              style: Styles.headline1,
+            );
           else {
             for (int index = 0;
                 index < snapshot.data.documents.length;
@@ -66,7 +69,7 @@ class ListScreenState extends State<ListScreen> {
             int wasteTotal =
                 totalWaste; //Ensures that it doesn't double values when reloads
             totalWaste = 0;
-            return Text('Wasteagram - $wasteTotal');
+            return Text('Wasteagram - $wasteTotal', style: Styles.headline1);
           }
         });
   }
@@ -149,7 +152,7 @@ class _ListsOfPostsState extends State<ListsOfPosts> {
                 title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(entry.date),
+                      Text(DateFormat.yMMMd().format(entry.date.toDate())),
                       Text('Items: ' + entry.itemCount.toString()),
                     ]),
                 onTap: () {

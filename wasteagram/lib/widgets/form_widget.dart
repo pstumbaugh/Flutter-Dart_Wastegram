@@ -47,46 +47,40 @@ class _FormWidgetState extends State<FormWidget> {
             ),
           ),
           SizedBox(
-              width: 2000,
-              height: 75,
-              child: Semantics(
-                  label: "Submit",
-                  hint: "Submit",
-                  child: RaisedButton(
-                    key: Key('submitButton'),
-                    onPressed: () async {
-                      if (formKey.currentState.validate()) {
-                        formKey.currentState.save();
-                        // Format Date
-                        String date = DateFormat.yMd().format(DateTime.now());
+              width: 100,
+              height: 100,
+              child: RaisedButton(
+                key: Key('submitButton'),
+                onPressed: () async {
+                  if (formKey.currentState.validate()) {
+                    formKey.currentState.save();
+                    // Format Date
+                    String date = DateFormat.yMd().format(DateTime.now());
 
-                        // Get location data
-                        await retrieveLocation();
-                        StorageReference storageReference = FirebaseStorage
-                            .instance
-                            .ref()
-                            .child(DateTime.now().toString());
+                    // Get location data
+                    await retrieveLocation();
 
-                        //StorageUploadTask uploadTask = storageReference.putFile(File(imagePath));
+                    //StorageReference storageReference = FirebaseStorage.instance.ref().child(DateTime.now().toString());
+                    //StorageUploadTask uploadTask = storageReference.putFile(File(imagePath));
 
-                        //await uploadTask.onComplete;
-                        final url = imagePath;
+                    //await uploadTask.onComplete;
+                    //final url = imagePath;
 
-                        await Firestore.instance.collection('posts').add({
-                          'date': date,
-                          'itemCount': itemCount,
-                          'latitude': locationData.latitude.toString(),
-                          'longitude': locationData.longitude.toString(),
-                          'url': url
-                        });
-                        Navigator.pop(context);
-                      }
-                    },
-                    child: Icon(
-                      Icons.cloud_upload_outlined,
-                      size: 50,
-                    ),
-                  ))),
+                    await Firestore.instance.collection('posts').add({
+                      'date': date,
+                      'itemCount': itemCount,
+                      'latitude': locationData.latitude.toString(),
+                      'longitude': locationData.longitude.toString(),
+                      'url': imagePath
+                    });
+                    Navigator.pop(context);
+                  }
+                },
+                child: Icon(
+                  Icons.cloud_upload_outlined,
+                  size: 50,
+                ),
+              )),
         ]));
   }
 

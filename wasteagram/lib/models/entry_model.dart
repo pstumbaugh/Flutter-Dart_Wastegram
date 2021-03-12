@@ -17,7 +17,7 @@ class Entry {
     this.longitude,
   });
 
-  String date;
+  Timestamp date;
   String url;
   String latitude;
   String longitude;

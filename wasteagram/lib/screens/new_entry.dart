@@ -19,11 +19,21 @@ class _NewPostScreenState extends State<NewPostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: const Text('Wastegram')),
-      body: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        ImageWidget(imagePath: imagePath),
-        FormWidget(imagePath: imagePath),
-      ]),
+      appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            'Wastegram',
+            style: Styles.headline1,
+          )),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 50),
+          child: Column(children: [
+            ImageWidget(imagePath: imagePath),
+            FormWidget(imagePath: imagePath),
+          ]),
+        ),
+      ),
     );
   }
 }

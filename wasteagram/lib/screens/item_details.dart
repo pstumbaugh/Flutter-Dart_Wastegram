@@ -1,4 +1,5 @@
 import '../imports.dart';
+import 'package:intl/intl.dart';
 
 class DetailScreen extends StatefulWidget {
   final Entry entry;
@@ -18,7 +19,10 @@ class _DetailScreenState extends State<DetailScreen> {
         appBar: AppBar(
           centerTitle: true,
           title: Column(children: [
-            const Text('Wasteagram'),
+            Text(
+              'Wasteagram',
+              style: Styles.headline1,
+            ),
           ]),
         ),
         body: DisplayColumn(entry: entry));
@@ -35,7 +39,14 @@ class DisplayColumn extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 20),
-          child: Text(entry.date, style: Styles.headline2),
+          child: Column(
+            children: [
+              Text(DateFormat.yMMMd().format(entry.date.toDate()),
+                  style: Styles.headline2),
+              Text(DateFormat.yMMMd().add_jm().format(entry.date.toDate()),
+                  style: Styles.headline2),
+            ],
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 80),
