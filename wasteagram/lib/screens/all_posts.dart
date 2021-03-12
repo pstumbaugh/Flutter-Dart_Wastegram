@@ -32,19 +32,15 @@ class ListScreenState extends State<ListScreen> {
       body: ListsOfPosts(), //list of posts from database
       //add a button for the user to add a new post:
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Semantics(
-        label: "New Post",
-        hint: "Tap to create new post",
-        child: FloatingActionButton(
-          backgroundColor: Colors.blue[400],
-          hoverColor: Colors.blue[800],
-          splashColor: Colors.blue[900],
-          key: Key('postButton'),
-          child: Icon(Icons.add_photo_alternate),
-          onPressed: () async {
-            getPictureAndRoute(progressDialog);
-          },
-        ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue[400],
+        hoverColor: Colors.blue[800],
+        splashColor: Colors.blue[900],
+        key: Key('postButton'),
+        child: Icon(Icons.add_photo_alternate),
+        onPressed: () async {
+          getPictureAndRoute(progressDialog);
+        },
       ),
     );
   }
