@@ -35,8 +35,8 @@ class DisplayColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
+    return ListView(
+      children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 20),
           child: Column(

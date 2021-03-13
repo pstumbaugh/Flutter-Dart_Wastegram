@@ -14,20 +14,16 @@ class _ListsOfPostsState extends State<ListsOfPosts> {
     Widget _buildListItem(BuildContext context, Entry entry) {
       return Semantics(
         label: "Date: ${entry.date}",
-        // generate a ListTile for each entry passed into this function
-        child: Column(
-          children: [
-            ListTile(
-                title: dateAndItemsDetails(entry),
-                onTap: () {
-                  // Navigate to post details when tapped
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DetailScreen(entry: entry)));
-                }),
-          ],
-        ),
+        // generate a ListTile for each entry passed
+        child: ListTile(
+            title: dateAndItemsDetails(entry),
+            onTap: () {
+              // Navigate to post details when tapped
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DetailScreen(entry: entry)));
+            }),
       );
     }
 
