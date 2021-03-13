@@ -10,7 +10,6 @@ class ListsOfPosts extends StatefulWidget {
 class _ListsOfPostsState extends State<ListsOfPosts> {
   @override
   Widget build(BuildContext context) {
-    // Scrollable list view
     Widget _buildListItem(BuildContext context, Entry entry) {
       return Semantics(
         label: "Date: ${entry.date}",
@@ -27,32 +26,34 @@ class _ListsOfPostsState extends State<ListsOfPosts> {
       );
     }
 
+    //buids our list of data items
+    ListView buildList(snapshot) {
+      return ListView.builder(
+          itemExtent:
+              100, //max number of items it will show (helps with scrolling if nearing max)
+          itemCount: snapshot.data.documents.length,
+          //generate each tile:
+          itemBuilder: (context, index) {
+            Entry entry = Entry(snapshot.data.documents[
+                index]); //gets the data, saves into Entry model object
+            return _buildListItem(context, entry); //builds the object
+          });
+    }
+
+    //Stream data from firestore:
     return StreamBuilder(
-        // Stream of data the StreamBuilder is listening to
-        //Sort based on date added
+        //Sort based on date added, most recent first
         stream: Firestore.instance
             .collection('posts')
             .orderBy('date', descending: true)
             .snapshots(),
-        // builder invoked whenever new data is acquired
-        // snapshot represents the potential value of a Future
+        //builder will be invoked whenever there is new data added
         builder: (context, snapshot) {
           if (snapshot.hasData && !snapshot.data.documents.isEmpty) {
-            // If data, display in a listview
-            return ListView.builder(
-                itemExtent: 80.0,
-                // itemcount is the number of "documents" in firebase
-                itemCount: snapshot.data.documents.length,
-                // generate tiles for each item in database via itembuilder
-                // + buildList funct
-                itemBuilder: (context, index) {
-                  // use entry.dart class for data retrieval
-                  Entry entry = Entry(snapshot.data.documents[index]);
-                  // send context and entry obj to buildListItem funct
-                  return _buildListItem(context, entry);
-                });
+            //data is available, build the list:
+            return buildList(snapshot);
           } else {
-            // CircularProgressIndicator when no data in online storage
+            //data not available, display CircularProgressIndicator:
             return Center(child: CircularProgressIndicator());
           }
         });
