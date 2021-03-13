@@ -1,5 +1,4 @@
 import '../imports.dart';
-import 'package:intl/intl.dart';
 
 class FormWidget extends StatefulWidget {
   final String imagePath;
@@ -126,7 +125,7 @@ class _FormWidgetState extends State<FormWidget> {
   }
 }
 
-//translations available
+//translations available (English, Spanish, Klingon)
 class Translations {
   Locale locale;
   Translations(Locale localeOf, {this.locale});
