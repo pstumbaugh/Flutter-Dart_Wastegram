@@ -6,8 +6,8 @@ class Styles {
 
   static final headline2 = TextStyle(fontFamily: 'AnticSlab', fontSize: 40.0);
 
-  static final headline3 = TextStyle(
-      fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.deepPurple);
+  static final headline3 =
+      TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold);
 
   static final headline4 =
       TextStyle(fontSize: 25.0, fontWeight: FontWeight.w300);

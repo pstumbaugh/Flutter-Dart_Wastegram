@@ -3,8 +3,9 @@ export './models/entry_model.dart';
 
 //SCREENS:
 export './screens/new_entry.dart';
-export './screens/all_posts.dart';
+export 'package:wasteagram/screens/main_screen/list_screen_main.dart';
 export './screens/item_details.dart';
+export 'package:wasteagram/screens/main_screen/post_screen_body.dart';
 
 //WIDGETS:
 export './widgets/form_widget.dart';
