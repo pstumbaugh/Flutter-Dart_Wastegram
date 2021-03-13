@@ -102,18 +102,15 @@ class _FormWidgetState extends State<FormWidget> {
     if (string == null || string.isEmpty) {
       return false;
     }
-
     //parse a string to a number (will return null if not number)
     final number = num.tryParse(string);
     if (number == null) {
       return false;
     }
-
     //if value is a number, check to make sure it's greater than 0
     if (number <= 0) {
       return false;
     }
-
     return true;
   }
 }
