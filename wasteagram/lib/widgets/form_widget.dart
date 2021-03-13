@@ -28,7 +28,7 @@ class _FormWidgetState extends State<FormWidget> {
     return Form(
         key: formKey,
         child: Column(children: <Widget>[
-          promptForItems(),
+          promptForItems(context),
           sendDataToFirestore(formKey),
         ]));
   }
@@ -81,7 +81,7 @@ class _FormWidgetState extends State<FormWidget> {
   }
 
   //prompts user for number of items wasted. If not a number or below 1, displays error
-  Padding promptForItems() {
+  Padding promptForItems(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: Semantics(
@@ -89,7 +89,9 @@ class _FormWidgetState extends State<FormWidget> {
         child: TextFormField(
           textAlign: TextAlign.center,
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(hintText: 'Items Wasted'),
+          decoration: InputDecoration(
+              hintText: Translations(Localizations.localeOf(context))
+                  .quantityFieldHint),
           style: Styles.headline2,
           validator: (value) {
             if (!isNumAndPos(value)) {
@@ -122,6 +124,21 @@ class _FormWidgetState extends State<FormWidget> {
     }
     return true;
   }
+}
+
+//translations available
+class Translations {
+  Locale locale;
+  Translations(Locale localeOf, {this.locale});
+
+  final labels = {
+    'en': {'quantityFieldHint': 'Items Wasted'},
+    'tlh': {'quantityFieldHint': 'ChiSqu\''},
+    'es': {'quantityFieldHint': 'Artículos Desperdiciados'}
+  };
+
+  String get quantityFieldHint =>
+      labels[locale.languageCode]['quantityFieldHint'];
 }
 
 //NOT NEEDED:
