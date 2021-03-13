@@ -15,6 +15,9 @@ export './widgets/image_widget.dart';
 //MAIN SECTIONS:
 export './main.dart';
 export './app.dart';
+
+//STYLES (AND TRANSLATIONS)
+export 'package:wasteagram/styles/Translations.dart';
 export 'package:wasteagram/styles/Styles.dart';
 
 //OTHER:

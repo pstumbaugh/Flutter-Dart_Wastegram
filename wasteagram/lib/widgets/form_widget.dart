@@ -125,20 +125,6 @@ class _FormWidgetState extends State<FormWidget> {
   }
 }
 
-//translations available (English, Spanish, Klingon)
-class Translations {
-  Locale locale;
-  Translations(Locale localeOf, {this.locale});
-
-  final labels = {
-    'en': {'quantityFieldHint': 'Items Wasted'},
-    'tlh': {'quantityFieldHint': 'ChiSqu\''},
-    'es': {'quantityFieldHint': 'Artículos Desperdiciados'}
-  };
-
-  String get quantityFieldHint =>
-      labels[locale.languageCode]['quantityFieldHint'];
-}
 
 //NOT NEEDED:
 //StorageReference storageReference = FirebaseStorage.instance.ref().child(DateTime.now().toString());
