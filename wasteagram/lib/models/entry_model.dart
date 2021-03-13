@@ -1,6 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+//Items that we will be recording in the firestore
 class Entry {
+  Timestamp date;
+  String url;
+  String latitude;
+  String longitude;
+  int itemCount;
+
   Entry(DocumentSnapshot doc) {
     this.date = doc['date'];
     this.itemCount = doc['itemCount'];
@@ -16,10 +23,4 @@ class Entry {
     this.latitude,
     this.longitude,
   });
-
-  Timestamp date;
-  String url;
-  String latitude;
-  String longitude;
-  int itemCount;
 }

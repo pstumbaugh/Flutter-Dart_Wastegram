@@ -29,18 +29,8 @@ class ListScreenState extends State<ListScreen> {
         title: titleAndTotalWaste(),
       ),
       body: ListsOfPosts(), //list of posts from database
-      //add a button for the user to add a new post:
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue[400],
-        hoverColor: Colors.blue[800],
-        splashColor: Colors.blue[900],
-        key: Key('postButton'),
-        child: Icon(Icons.add_photo_alternate),
-        onPressed: () async {
-          getPictureAndRoute(progressDialog);
-        },
-      ),
+      floatingActionButton: addNewButton(progressDialog), //button for new entry
     );
   }
 
@@ -55,17 +45,35 @@ class ListScreenState extends State<ListScreen> {
               style: Styles.headline1,
             );
           else {
+            //iterate through each item, adding up "itemCount" to total waste
             for (int index = 0;
                 index < snapshot.data.documents.length;
                 index++) {
               totalWaste = getTotalWaste(
                   snapshot.data.documents[index]['itemCount'], totalWaste);
             }
-            int wasteTotal = totalWaste;
-            totalWaste = 0;
+            //make new var to hold totalWaste (in case this gets rebuilt, it won't add to previous total)
+            int wasteTotal = totalWaste; //move to "wasteTotal" variable
+            totalWaste = 0; //reset totalWaste
             return Text('Wasteagram - $wasteTotal', style: Styles.headline1);
           }
         });
+  }
+
+  //adds a new Floating Action Button (the add button)
+  //on pressed will direct to get a new picture from gallery, then route to new entry page
+  FloatingActionButton addNewButton(dynamic progressDialog) {
+    //add a button for the user to add a new post:
+    return FloatingActionButton(
+      backgroundColor: Colors.blue[400],
+      hoverColor: Colors.blue[800],
+      splashColor: Colors.blue[900],
+      key: Key('postButton'),
+      child: Icon(Icons.add_photo_alternate),
+      onPressed: () async {
+        getPictureAndRoute(progressDialog);
+      },
+    );
   }
 
   //adds up total waste and saves to global variable "totalWaste"
