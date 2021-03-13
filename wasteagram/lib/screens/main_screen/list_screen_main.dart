@@ -61,15 +61,14 @@ class ListScreenState extends State<ListScreen> {
               totalWaste = getTotalWaste(
                   snapshot.data.documents[index]['itemCount'], totalWaste);
             }
-            int wasteTotal =
-                totalWaste; //Ensures that it doesn't double values when reloads
+            int wasteTotal = totalWaste;
             totalWaste = 0;
             return Text('Wasteagram - $wasteTotal', style: Styles.headline1);
           }
         });
   }
 
-  //adds up total waste
+  //adds up total waste and saves to global variable "totalWaste"
   int getTotalWaste(int quantity, int totalWaste) {
     return totalWaste = totalWaste + quantity;
   }
@@ -78,10 +77,14 @@ class ListScreenState extends State<ListScreen> {
   //It will save it to the firebase storage, then return a download URL
   //It then saves that download URL as a string to the global variable "imagePath"
   Future getImage() async {
+    ProgressDialog progressDialog =
+        ProgressDialog(context: context, barrierDismissible: false);
     image = await ImagePicker.pickImage(source: ImageSource.gallery);
     StorageReference storageReference =
         FirebaseStorage.instance.ref().child(Path.basename(image.path));
     StorageUploadTask uploadTask = storageReference.putFile(image);
+    progressDialog.dismiss(); //remove progress indicator
+    showProgressIndicator(progressDialog, "Uploading Picture");
     await uploadTask.onComplete;
     imagePath = await storageReference.getDownloadURL();
   }
@@ -96,10 +99,11 @@ class ListScreenState extends State<ListScreen> {
 
 //pops up a box with the progress indicator (using while waiting for async functions to complete)
 //NOTE - progressDialog.dismiss(); must be called after to remove the progress indicator from screen
-  void showProgressIndicator(ProgressDialog progressDialog) {
+  void showProgressIndicator(
+      ProgressDialog progressDialog, String messageString) {
     return progressDialog.showMaterial(
       backgroundColor: Colors.grey[300],
-      message: "Loading picture",
+      message: messageString,
       messageStyle: TextStyle(
           color: Colors.blue[800], fontSize: 17, fontWeight: FontWeight.bold),
       title: "Wasteagram",
@@ -115,8 +119,8 @@ class ListScreenState extends State<ListScreen> {
 
   //gets a new pic from user, then routes to the new post screen
   Future<void> getPictureAndRoute(ProgressDialog progressDialog) async {
-    showProgressIndicator(
-        progressDialog); //show progress indicator (on list page)
+    showProgressIndicator(progressDialog,
+        "Loading Gallery"); //show progress indicator (on list page)
     await getImage(); // wait for image to be selected before navigating
     progressDialog.dismiss(); //remove progress indicator
     Navigator.push(
