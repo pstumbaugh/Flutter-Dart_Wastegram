@@ -46,8 +46,10 @@ class _FormWidgetState extends State<FormWidget> {
         width: 100,
         height: 100,
         child: Semantics(
-          label: "Submit",
-          hint: "Submit",
+          label: "Submit button",
+          hint: "Submit button",
+          button: true,
+          enabled: true,
           child: RaisedButton(
             key: Key('submitButton'),
             onPressed: () async {
@@ -82,20 +84,23 @@ class _FormWidgetState extends State<FormWidget> {
   Padding promptForItems() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
-      child: TextFormField(
-        textAlign: TextAlign.center,
-        keyboardType: TextInputType.number,
-        decoration: const InputDecoration(hintText: 'Items Wasted'),
-        style: Styles.headline2,
-        validator: (value) {
-          if (!isNumAndPos(value)) {
-            return 'Please enter a positive number';
-          }
-          return null;
-        },
-        onSaved: (value) {
-          itemCount = int.parse(value);
-        },
+      child: Semantics(
+        hint: 'Enter number of items wasted here',
+        child: TextFormField(
+          textAlign: TextAlign.center,
+          keyboardType: TextInputType.number,
+          decoration: const InputDecoration(hintText: 'Items Wasted'),
+          style: Styles.headline2,
+          validator: (value) {
+            if (!isNumAndPos(value)) {
+              return 'Please enter a positive number';
+            }
+            return null;
+          },
+          onSaved: (value) {
+            itemCount = int.parse(value);
+          },
+        ),
       ),
     );
   }

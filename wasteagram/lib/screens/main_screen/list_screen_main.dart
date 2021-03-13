@@ -30,7 +30,11 @@ class ListScreenState extends State<ListScreen> {
       ),
       body: ListsOfPosts(), //list of posts from database
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: addNewButton(progressDialog), //button for new entry
+      floatingActionButton: Semantics(
+          button: true,
+          enabled: true,
+          onTapHint: 'Add a new image and post',
+          child: addNewButton(progressDialog)), //button for new entry
     );
   }
 
