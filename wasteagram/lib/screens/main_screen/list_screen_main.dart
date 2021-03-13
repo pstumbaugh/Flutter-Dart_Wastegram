@@ -4,10 +4,10 @@ import 'package:path/path.dart' as Path;
 
 class ListScreen extends StatefulWidget {
   @override
-  ListScreenState createState() => ListScreenState();
+  _ListScreenState createState() => _ListScreenState();
 }
 
-class ListScreenState extends State<ListScreen> {
+class _ListScreenState extends State<ListScreen> {
   final picker = ImagePicker();
   String imagePath;
   File image;
