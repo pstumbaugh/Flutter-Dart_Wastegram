@@ -1,5 +1,3 @@
-import 'package:flutter/semantics.dart';
-
 import '../imports.dart';
 import 'package:intl/intl.dart';
 
@@ -30,73 +28,79 @@ class _FormWidgetState extends State<FormWidget> {
     return Form(
         key: formKey,
         child: Column(children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(bottom: 30),
-            child: TextFormField(
-              textAlign: TextAlign.center,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(hintText: 'Items Wasted'),
-              style: Styles.headline2,
-              validator: (value) {
-                if (!isNumAndPos(value)) {
-                  return 'Please enter a positive number';
-                }
-                return null;
-              },
-              onSaved: (value) {
-                itemCount = int.parse(value);
-              },
-            ),
-          ),
-          Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  border: Border.all(color: Colors.grey, width: 4)),
-              foregroundDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  border: Border.all(color: Colors.blueGrey, width: 7)),
-              width: 100,
-              height: 100,
-              child: Semantics(
-                label: "Submit",
-                hint: "Submit",
-                child: RaisedButton(
-                  key: Key('submitButton'),
-                  onPressed: () async {
-                    if (formKey.currentState.validate()) {
-                      formKey.currentState.save();
-                      // Format Date
-                      //OLD-> Timestamp date = DateFormat.yMd().format(DateTime.now());
-                      var date = DateTime.now();
-
-                      // Get location data (stores in longitude and latitude)
-                      await retrieveLocation();
-
-                      //StorageReference storageReference = FirebaseStorage.instance.ref().child(DateTime.now().toString());
-                      //StorageUploadTask uploadTask = storageReference.putFile(File(imagePath));
-
-                      //await uploadTask.onComplete;
-                      //final url = imagePath;
-
-                      await Firestore.instance.collection('posts').add({
-                        'date': date,
-                        'itemCount': itemCount,
-                        'latitude': locationData.latitude.toString(),
-                        'longitude': locationData.longitude.toString(),
-                        'url': imagePath
-                      });
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: Icon(
-                    Icons.cloud_upload_outlined,
-                    size: 50,
-                  ),
-                ),
-              )),
+          promptForItems(),
+          sendDataToFirestore(formKey),
         ]));
   }
 
+  //collects other data from user (date, time), adds them to our post
+  //and sends it to the firestore for storage
+  Container sendDataToFirestore(formKey) {
+    return Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.0),
+            border: Border.all(color: Colors.grey, width: 4)),
+        foregroundDecoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.0),
+            border: Border.all(color: Colors.blueGrey, width: 7)),
+        width: 100,
+        height: 100,
+        child: Semantics(
+          label: "Submit",
+          hint: "Submit",
+          child: RaisedButton(
+            key: Key('submitButton'),
+            onPressed: () async {
+              if (formKey.currentState.validate()) {
+                formKey.currentState.save();
+                // Format Date
+                //OLD-> Timestamp date = DateFormat.yMd().format(DateTime.now());
+                var date = DateTime.now();
+
+                // Get location data (stores in longitude and latitude)
+                await retrieveLocation();
+
+                await Firestore.instance.collection('posts').add({
+                  'date': date,
+                  'itemCount': itemCount,
+                  'latitude': locationData.latitude.toString(),
+                  'longitude': locationData.longitude.toString(),
+                  'url': imagePath
+                });
+                Navigator.pop(context);
+              }
+            },
+            child: Icon(
+              Icons.cloud_upload_outlined,
+              size: 60,
+            ),
+          ),
+        ));
+  }
+
+  //prompts user for number of items wasted. If not a number or below 1, displays error
+  Padding promptForItems() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 30),
+      child: TextFormField(
+        textAlign: TextAlign.center,
+        keyboardType: TextInputType.number,
+        decoration: const InputDecoration(hintText: 'Items Wasted'),
+        style: Styles.headline2,
+        validator: (value) {
+          if (!isNumAndPos(value)) {
+            return 'Please enter a positive number';
+          }
+          return null;
+        },
+        onSaved: (value) {
+          itemCount = int.parse(value);
+        },
+      ),
+    );
+  }
+
+  //validator to make sure entered string is a positive number
   bool isNumAndPos(String string) {
     // Null or empty string is not a number
     if (string == null || string.isEmpty) {
@@ -114,3 +118,10 @@ class _FormWidgetState extends State<FormWidget> {
     return true;
   }
 }
+
+//NOT NEEDED:
+//StorageReference storageReference = FirebaseStorage.instance.ref().child(DateTime.now().toString());
+//StorageUploadTask uploadTask = storageReference.putFile(File(imagePath));
+
+//await uploadTask.onComplete;
+//final url = imagePath;

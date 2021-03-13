@@ -1,5 +1,4 @@
 import '../imports.dart';
-//import 'dart:developer';
 
 // This screen allows a user to upload a new post
 class NewPostScreen extends StatefulWidget {
@@ -16,6 +15,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
   final String imagePath;
   _NewPostScreenState({this.imagePath});
 
+  //build the new entry screen using Image and Form widgets
   @override
   Widget build(BuildContext context) {
     return Scaffold(
