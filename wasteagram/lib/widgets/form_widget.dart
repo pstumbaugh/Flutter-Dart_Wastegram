@@ -127,10 +127,13 @@ class _FormWidgetState extends State<FormWidget> {
   }
 }
 
-
+/*
 //NOT NEEDED:
-//StorageReference storageReference = FirebaseStorage.instance.ref().child(DateTime.now().toString());
-//StorageUploadTask uploadTask = storageReference.putFile(File(imagePath));
+StorageReference storageReference = FirebaseStorage.instance
+                    .ref()
+                    .child(DateTime.now().toString());
+StorageUploadTask uploadTask = storageReference.putFile(File(imagePath));
 
-//await uploadTask.onComplete;
-//final url = imagePath;
+await uploadTask.onComplete;
+/final url = imagePath;
+*/
