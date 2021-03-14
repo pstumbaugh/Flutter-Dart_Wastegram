@@ -1,5 +1,4 @@
 import '../imports.dart';
-import 'package:intl/intl.dart';
 
 class FormWidget extends StatefulWidget {
   final String imagePath;
@@ -82,6 +81,8 @@ class _FormWidgetState extends State<FormWidget> {
 
   //prompts user for number of items wasted. If not a number or below 1, displays error
   Padding promptForItems(BuildContext context) {
+    //For getting the language:
+    var language = Localizations.localeOf(context); //get phone's location
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: Semantics(
@@ -90,8 +91,7 @@ class _FormWidgetState extends State<FormWidget> {
           textAlign: TextAlign.center,
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
-              hintText: Translations(Localizations.localeOf(context))
-                  .quantityFieldHint),
+              hintText: Translations(language).getQuantityFieldHint(language)),
           style: Styles.headline2,
           validator: (value) {
             if (!isNumAndPos(value)) {
@@ -126,24 +126,13 @@ class _FormWidgetState extends State<FormWidget> {
   }
 }
 
-//translations available
-class Translations {
-  Locale locale;
-  Translations(Locale localeOf, {this.locale});
-
-  final labels = {
-    'en': {'quantityFieldHint': 'Items Wasted'},
-    'tlh': {'quantityFieldHint': 'ChiSqu\''},
-    'es': {'quantityFieldHint': 'Artículos Desperdiciados'}
-  };
-
-  String get quantityFieldHint =>
-      labels[locale.languageCode]['quantityFieldHint'];
-}
-
+/*
 //NOT NEEDED:
-//StorageReference storageReference = FirebaseStorage.instance.ref().child(DateTime.now().toString());
-//StorageUploadTask uploadTask = storageReference.putFile(File(imagePath));
+StorageReference storageReference = FirebaseStorage.instance
+                    .ref()
+                    .child(DateTime.now().toString());
+StorageUploadTask uploadTask = storageReference.putFile(File(imagePath));
 
-//await uploadTask.onComplete;
-//final url = imagePath;
+await uploadTask.onComplete;
+/final url = imagePath;
+*/

@@ -222,6 +222,8 @@ PODS:
     - Firebase/Core
     - Firebase/Firestore (~> 6.0)
     - Flutter
+  - Firebase/Analytics (6.34.0):
+    - Firebase/Core
   - Firebase/Core (6.34.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 6.9.0)
@@ -233,6 +235,10 @@ PODS:
   - Firebase/Storage (6.34.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 3.9.1)
+  - firebase_analytics (0.0.1):
+    - Firebase/Analytics (~> 6.0)
+    - Firebase/Core
+    - Flutter
   - firebase_core (0.0.1):
     - Firebase/Core
     - Flutter
@@ -340,15 +346,26 @@ PODS:
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
+  - package_info (0.0.1):
+    - Flutter
   - PromisesObjC (1.2.12)
+  - Sentry (6.1.4):
+    - Sentry/Core (= 6.1.4)
+  - Sentry/Core (6.1.4)
+  - sentry_flutter (0.0.1):
+    - Flutter
+    - Sentry (~> 6.1.4)
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
+  - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Flutter`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - location (from `.symlinks/plugins/location/ios`)
+  - package_info (from `.symlinks/plugins/package_info/ios`)
+  - sentry_flutter (from `.symlinks/plugins/sentry_flutter/ios`)
 
 SPEC REPOS:
   trunk:
@@ -370,10 +387,13 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - Sentry
 
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  firebase_analytics:
+    :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_storage:
@@ -384,12 +404,17 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker/ios"
   location:
     :path: ".symlinks/plugins/location/ios"
+  package_info:
+    :path: ".symlinks/plugins/package_info/ios"
+  sentry_flutter:
+    :path: ".symlinks/plugins/sentry_flutter/ios"
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   cloud_firestore: 10fd4a09ebffc33efd64708106e2e7de701fe9ae
   Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
+  firebase_analytics: 9118044ffb98bee71d84733fc594f5134fe4bc1b
   firebase_core: dc539d4bdc69894823e4a6e557034a9e48960f21
   firebase_storage: 22966fce4aa6e8848cbaa017df62107cee29f327
   FirebaseAnalytics: 3bb096873ee0d7fa4b6c70f5e9166b6da413cc7f
@@ -409,7 +434,10 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
+  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  Sentry: 9d055e2de30a77685e86b219acf02e59b82091fc
+  sentry_flutter: 8b2b2e1c0101ef562106b5d272d3c0c741512c01
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 

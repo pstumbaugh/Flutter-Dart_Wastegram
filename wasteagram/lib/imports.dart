@@ -15,7 +15,10 @@ export './widgets/image_widget.dart';
 //MAIN SECTIONS:
 export './main.dart';
 export './app.dart';
-export './Styles.dart';
+
+//STYLES (AND TRANSLATIONS)
+export 'package:wasteagram/styles/Translations.dart';
+export 'package:wasteagram/styles/Styles.dart';
 
 //OTHER:
 export 'package:image_picker/image_picker.dart';
@@ -33,3 +36,5 @@ export 'package:flutter/services.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 export 'package:firebase_storage/firebase_storage.dart';
 export 'package:location/location.dart';
+//export 'package:firebase_analytics/firebase_analytics.dart';
+//export 'package:firebase_analytics/observer.dart';

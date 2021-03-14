@@ -4,10 +4,10 @@ import 'package:path/path.dart' as Path;
 
 class ListScreen extends StatefulWidget {
   @override
-  ListScreenState createState() => ListScreenState();
+  _ListScreenState createState() => _ListScreenState();
 }
 
-class ListScreenState extends State<ListScreen> {
+class _ListScreenState extends State<ListScreen> {
   final picker = ImagePicker();
   String imagePath;
   File image;
@@ -92,8 +92,9 @@ class ListScreenState extends State<ListScreen> {
     ProgressDialog progressDialog =
         ProgressDialog(context: context, barrierDismissible: false);
     image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    StorageReference storageReference =
-        FirebaseStorage.instance.ref().child(Path.basename(image.path));
+    StorageReference storageReference = FirebaseStorage.instance
+        .ref()
+        .child(DateTime.now().toString()); //using dateTime as unique id
     StorageUploadTask uploadTask = storageReference.putFile(image);
     progressDialog.dismiss(); //remove progress indicator
     showProgressIndicator(progressDialog, "Uploading Picture");
