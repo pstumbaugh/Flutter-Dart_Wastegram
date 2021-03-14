@@ -36,5 +36,5 @@ export 'package:flutter/services.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 export 'package:firebase_storage/firebase_storage.dart';
 export 'package:location/location.dart';
-export 'package:firebase_analytics/firebase_analytics.dart';
-export 'package:firebase_analytics/observer.dart';
+//export 'package:firebase_analytics/firebase_analytics.dart';
+//export 'package:firebase_analytics/observer.dart';

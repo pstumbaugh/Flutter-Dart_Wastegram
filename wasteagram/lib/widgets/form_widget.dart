@@ -81,10 +81,9 @@ class _FormWidgetState extends State<FormWidget> {
 
   //prompts user for number of items wasted. If not a number or below 1, displays error
   Padding promptForItems(BuildContext context) {
-    /* For getting the language:
+    //For getting the language:
     var language = Localizations.localeOf(context);
-    Translations(language).getQuantityFieldHint;
-    */
+    print(language);
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: Semantics(
@@ -92,7 +91,8 @@ class _FormWidgetState extends State<FormWidget> {
         child: TextFormField(
           textAlign: TextAlign.center,
           keyboardType: TextInputType.number,
-          decoration: InputDecoration(hintText: "Items Wasted"),
+          decoration: InputDecoration(
+              hintText: Translations(language).getQuantityFieldHint(language)),
           style: Styles.headline2,
           validator: (value) {
             if (!isNumAndPos(value)) {
