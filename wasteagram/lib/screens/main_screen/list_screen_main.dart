@@ -93,7 +93,7 @@ class _ListScreenState extends State<ListScreen> {
         ProgressDialog(context: context, barrierDismissible: false);
     image = await ImagePicker.pickImage(source: ImageSource.gallery);
     StorageReference storageReference =
-        FirebaseStorage.instance.ref().child(Path.basename(image.path));
+        FirebaseStorage.instance.ref().child(DateTime.now().toString());
     StorageUploadTask uploadTask = storageReference.putFile(image);
     progressDialog.dismiss(); //remove progress indicator
     showProgressIndicator(progressDialog, "Uploading Picture");
