@@ -49,7 +49,9 @@ class _ListsOfPostsState extends State<ListsOfPosts> {
             .snapshots(),
         //builder will be invoked whenever there is new data added
         builder: (context, snapshot) {
-          if (snapshot.hasData && !snapshot.data.documents.isEmpty) {
+          if (snapshot.hasData &&
+              snapshot.data.documents != null &&
+              snapshot.data.documents.length > 0) {
             //data is available, build the list:
             return buildList(snapshot);
           } else {
