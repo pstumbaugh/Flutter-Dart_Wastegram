@@ -82,8 +82,7 @@ class _FormWidgetState extends State<FormWidget> {
   //prompts user for number of items wasted. If not a number or below 1, displays error
   Padding promptForItems(BuildContext context) {
     //For getting the language:
-    var language = Localizations.localeOf(context);
-    print(language);
+    var language = Localizations.localeOf(context); //get phone's location
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: Semantics(
